@@ -1,9 +1,16 @@
-import React from "react";
-import logo from "./logo.svg";
+import React, { Component } from "react";
+import Layout from "./components/Layout/Layout";
+import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
 
 class App extends Component {
   render() {
-    return <div></div>;
+    return (
+      <div>
+        <Layout>
+          <BurgerBuilder></BurgerBuilder>
+        </Layout>
+      </div>
+    );
   }
 }
 
