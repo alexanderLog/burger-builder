@@ -1,9 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import classes from "./Modal.module.css";
-import Aux from "../../../hoc/Aux";
 import Backdrop from "../Backdrop/Backdrop";
 
-class Modal extends Component {
+class Modal extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return (
       nextProps.show !== this.props.show ||
@@ -17,7 +16,7 @@ class Modal extends Component {
 
   render() {
     return (
-      <Aux>
+      <React.Fragment>
         <Backdrop show={this.props.show} close={this.props.modalClosed} />
         <div
           className={classes.Modal}
@@ -28,7 +27,7 @@ class Modal extends Component {
         >
           {this.props.children}
         </div>
-      </Aux>
+      </React.Fragment>
     );
   }
 }

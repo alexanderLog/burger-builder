@@ -1,9 +1,7 @@
-import React, { Component } from "react";
-
-import Aux from "../../../hoc/Aux";
+import React from "react";
 import Button from "../../UI/Button/Button";
 
-class OrderSummary extends Component {
+class OrderSummary extends React.Component {
   //this could be a functional componenet, does not have to be a class
   componentWillUpdate() {
     console.log("[ordersummary] WillUpdate");
@@ -22,7 +20,7 @@ class OrderSummary extends Component {
     );
 
     return (
-      <Aux>
+      <React.Fragment>
         <h3>Your Order</h3>
         <p>A delicious burger with the following ingredients:</p>
         <ul>{ingredientSummary}</ul>
@@ -36,7 +34,7 @@ class OrderSummary extends Component {
         <Button btnType="Success" clicked={this.props.purchaseContinue}>
           CONTINUE
         </Button>
-      </Aux>
+      </React.Fragment>
     );
   }
 }

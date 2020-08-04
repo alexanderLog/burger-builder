@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 
-import Aux from "../../hoc/Aux";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
@@ -16,7 +15,7 @@ const INGREDIENT_PRICES = {
   bacon: 0.7,
 };
 
-class BurgerBuilder extends Component {
+class BurgerBuilder extends React.Component {
   state = {
     ingredients: null,
     totalPrice: 4,
@@ -59,23 +58,20 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = async () => {
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: "Alexander Logvinenko",
-        street: "test",
-        zipCode: "12321",
-        country: "Canada",
-      },
-      email: "test@gmail.com",
-      deliveryMethod: "Express",
-    };
-    this.setState({ loading: true, purchasing: true });
-
-    await axios.post("/orders.json", order);
-
-    this.setState({ purchasing: false, loading: false });
+    const queryParams = [];
+    for (let i in this.state.ingredients) {
+      queryParams.push(
+        encodeURIComponent(i) +
+          "=" +
+          encodeURIComponent(this.state.ingredients[i])
+      );
+    }
+    queryParams.push("price=" + this.state.totalPrice);
+    const queryString = queryParams.join("&");
+    this.props.history.push({
+      pathname: "/checkout",
+      search: "?" + queryString,
+    });
   };
 
   addIngridentHandler = (ingredientType) => {
@@ -131,7 +127,7 @@ class BurgerBuilder extends Component {
 
     if (this.state.ingredients) {
       burger = (
-        <Aux>
+        <React.Fragment>
           <Burger ingredients={this.state.ingredients} />
           <BuildControls
             ingredientAdded={this.addIngridentHandler}
@@ -141,7 +137,7 @@ class BurgerBuilder extends Component {
             price={this.state.totalPrice}
             ordered={this.purchaseHandler}
           />
-        </Aux>
+        </React.Fragment>
       );
 
       orderSummary = (
@@ -159,7 +155,7 @@ class BurgerBuilder extends Component {
     }
 
     return (
-      <Aux>
+      <React.Fragment>
         <Modal
           show={this.state.purchasing}
           modalClosed={this.purchaseCancelHandler}
@@ -167,7 +163,7 @@ class BurgerBuilder extends Component {
           {orderSummary}
         </Modal>
         {burger}
-      </Aux>
+      </React.Fragment>
     );
   }
 }
