@@ -2,11 +2,6 @@ import React from "react";
 import Button from "../../UI/Button/Button";
 
 class OrderSummary extends React.Component {
-  //this could be a functional componenet, does not have to be a class
-  componentWillUpdate() {
-    console.log("[ordersummary] WillUpdate");
-  }
-
   render() {
     const ingredientSummary = Object.keys(this.props.ingredients).map(
       (igKey) => {

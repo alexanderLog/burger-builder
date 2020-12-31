@@ -10,10 +10,6 @@ class Modal extends React.Component {
     );
   }
 
-  componentWillUpdate() {
-    console.log("[Modal] will update");
-  }
-
   render() {
     return (
       <React.Fragment>
